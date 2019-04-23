@@ -1,5 +1,7 @@
 package vues;
 
+
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -129,11 +131,11 @@ public class frmAfficher extends JFrame{
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, "", null},
-				{null, null, null},
+				{"1", "alfred", Boolean.TRUE},
+				{"2", "alphred", null},
+				{"3", "all fred", null},
+				{"4", "alfe raide", Boolean.TRUE},
+				{"5", "al fraide", Boolean.TRUE},
 				{null, null, null},
 				{null, null, null},
 				{null, null, null},
@@ -144,15 +146,11 @@ public class frmAfficher extends JFrame{
 				"Num\u00E9ro d'artiste", "Nom", "Membre"
 			}
 		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false
+			Class[] columnTypes = new Class[] {
+				Object.class, Object.class, Boolean.class
 			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
 			}
 		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(91);
