@@ -12,12 +12,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollBar;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.ListSelectionModel;
 
 public class frmAfficher extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	public JTextField textField;
-	public JTable table;
 	public JTextField textField_1;
 	public JTextField textField_2;
 	JButton btnRecherche = new JButton("Recherche");
@@ -36,8 +39,9 @@ public class frmAfficher extends JFrame{
 	JLabel lblImageGauche = new JLabel("Image");
 	JLabel lblDroite = new JLabel("Image");
 	JList list;
-	JScrollPane scrollPane;
 	
+	private final JScrollPane scrollPane = new JScrollPane();
+	private final JTable table = new JTable();
 	public frmAfficher(){
 		
 		super( "Gestion des Artistes" );
@@ -77,37 +81,7 @@ public class frmAfficher extends JFrame{
 		lblArtistes.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
 		lblArtistes.setBounds(22, 75, 85, 47);
 		getContentPane().add(lblArtistes);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(590, 129, -425, 134);
-		getContentPane().add(scrollPane);
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.setBackground(Color.WHITE);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, "", null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"No", "Nom", "Membre"
-			}
-		) {
-			
-			private static final long serialVersionUID = 1L;
-			
-			Class[] columnTypes = new Class[] {
-				Object.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		
+
 		btnRemplacer.setBounds(22, 233, 100, 30);
 		getContentPane().add(btnRemplacer);
 		
@@ -149,12 +123,46 @@ public class frmAfficher extends JFrame{
 		
 		lblDroite.setBounds(527, 320, 186, 153);
 		getContentPane().add(lblDroite);
+		scrollPane.setBounds(136, 80, 458, 187);
 		
-		table.getColumnModel().getColumn(0).setPreferredWidth(43);
-		table.getColumnModel().getColumn(1).setPreferredWidth(285);
-		table.getColumnModel().getColumn(2).setPreferredWidth(143);
+		getContentPane().add(scrollPane);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, "", null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+			},
+			new String[] {
+				"Num\u00E9ro d'artiste", "Nom", "Membre"
+			}
+		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(91);
 		
+		scrollPane.setViewportView(table);		
+			
 		
 	}
-
+	
+	
+	
+	
 }

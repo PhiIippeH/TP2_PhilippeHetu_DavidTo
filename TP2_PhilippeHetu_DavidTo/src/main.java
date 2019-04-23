@@ -1,3 +1,4 @@
+import vues.ChoixForm;
 import vues.IdentificationUtilisateur;
 import vues.frmAfficher;
 
@@ -9,6 +10,8 @@ public class main {
 		id.setVisible( true );
 		frmAfficher id2 = new frmAfficher();
 		id2.setVisible( true );
+		ChoixForm ch = new ChoixForm();
+		ch.setVisible(true);
 	}
 
 }
