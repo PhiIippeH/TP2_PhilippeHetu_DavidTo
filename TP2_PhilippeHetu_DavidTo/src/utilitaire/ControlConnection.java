@@ -36,9 +36,10 @@ public class ControlConnection {
 	}
 
 	public static void fermerSession() {
-		String sql = "SELECT numero, nom, prenom FROM Employes";
+		
 		try {
 			if (laConnexion != null && !laConnexion.isClosed()) {
+				laConnexion.close();
 
 			}
 			// fermer la connexion
@@ -48,24 +49,50 @@ public class ControlConnection {
 
 	}
 	
-	public ResultSet getArtiste() {
+	public static ResultSet getArtiste() {
 		String sql = "SELECT numero, nom, membre FROM artiste";
 		ResultSet result = null;
-		 try (Connection conn = laConnexion;
+		 try {
+			 Connection conn = laConnexion;
 	             Statement stmt  = conn.createStatement();
-	             ResultSet rs    = stmt.executeQuery(sql)){
+	             ResultSet rs    = stmt.executeQuery(sql);
 	            result = rs;
-	            // loop through the result set
+	            //loop through the result set
+	            while (rs.next()) {
+	                System.out.println(rs.getString("numero") +  "\t" + 
+	                                   rs.getString("nom") + "\t" +
+	                                   rs.getString("membre"));
+	            }
 	            
 	        } catch (SQLException e) {
 	            System.out.println(e.getMessage());
 	        }
-		 return result;
+		return result;
 
 	}
 	
-	public static void getAlbums() {
-		
+	public static ResultSet getAlbums() {
+		String sql = "SELECT numero, titre, genre, annee FROM albums";
+		ResultSet result = null;
+		 try {
+	            	 Connection conn = laConnexion;
+	             Statement stmt  = conn.createStatement();
+	             ResultSet rs    = stmt.executeQuery(sql);
+	            result = rs;
+	            //loop through the result set
+	            while (rs.next()) {
+	                System.out.println(rs.getString("numero") +  "\t" + 
+	                                   rs.getString("titre") + "\t" +
+	                                   rs.getString("genre")+ "\t" +
+	                                   rs.getString("annee"));
+	            }
+	            
+	            
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+		return result;
+
 
 	}
 	
