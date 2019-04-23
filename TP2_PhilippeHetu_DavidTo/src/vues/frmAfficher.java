@@ -146,6 +146,10 @@ public class frmAfficher extends JFrame{
 				"Num\u00E9ro d'artiste", "Nom", "Membre"
 			}
 		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			Class[] columnTypes = new Class[] {
 				Object.class, Object.class, Boolean.class
 			};
