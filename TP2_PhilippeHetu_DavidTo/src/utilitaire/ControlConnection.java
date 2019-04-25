@@ -58,11 +58,11 @@ public class ControlConnection {
 	             ResultSet rs    = stmt.executeQuery(sql);
 	            result = rs;
 	            //loop through the result set
-	            while (rs.next()) {
+	            /* while (rs.next()) {
 	                System.out.println(rs.getString("numero") +  "\t" + 
 	                                   rs.getString("nom") + "\t" +
 	                                   rs.getString("membre"));
-	            }
+	            }*/
 	            
 	        } catch (SQLException e) {
 	            System.out.println(e.getMessage());
@@ -80,12 +80,12 @@ public class ControlConnection {
 	             ResultSet rs    = stmt.executeQuery(sql);
 	            result = rs;
 	            //loop through the result set
-	            while (rs.next()) {
+	           /* while (rs.next()) {
 	                System.out.println(rs.getString("numero") +  "\t" + 
 	                                   rs.getString("titre") + "\t" +
 	                                   rs.getString("genre")+ "\t" +
 	                                   rs.getString("annee"));
-	            }
+	            }*/
 	            
 	            
 	        } catch (SQLException e) {
@@ -97,6 +97,6 @@ public class ControlConnection {
 	}
 	
 	public static Connection getLaConnexion() {
-		return null;
+		return laConnexion;
 		}
 }
