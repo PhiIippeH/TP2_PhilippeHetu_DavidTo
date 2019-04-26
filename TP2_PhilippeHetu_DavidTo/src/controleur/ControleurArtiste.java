@@ -7,7 +7,7 @@ public class ControleurArtiste implements ActionListener {
 	
 	
 	
-	public void ControleurArtiste() {
+	public ControleurArtiste() {
 		// TODO Auto-generated constructor stub
 	}
 
