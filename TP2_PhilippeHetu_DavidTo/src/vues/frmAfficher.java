@@ -2,7 +2,7 @@ package vues;
 
 
 
-import java.awt.Color;
+
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -14,33 +14,35 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollBar;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
+
 import javax.swing.ListSelectionModel;
 
 public class frmAfficher extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	public JTextField textField;
-	public JTextField textField_1;
-	public JTextField textField_2;
-	JButton btnRecherche = new JButton("Recherche");
-	JButton btnQuitter = new JButton("Quitter");
-	JButton btnNouveau = new JButton("Nouveau");
-	JButton btnAjouter = new JButton("Ajouter");
-	JButton btnModifier = new JButton("Modifier");
-	JButton btnSupprimer = new JButton("Supprimer");
-	JLabel lblArtistes = new JLabel("Artistes");
-	JButton btnRemplacer = new JButton("Remplacer");
-	JLabel lblArtiste = new JLabel("Artistes");
-	JLabel lblNumero = new JLabel("Num\u00E9ro");
-	JLabel lblNom = new JLabel("Nom");
-	JLabel lblMembre = new JLabel("Membre");
-	JCheckBox checkBoxMembre = new JCheckBox("");
-	JLabel lblImageGauche = new JLabel("Image");
-	JLabel lblDroite = new JLabel("Image");
-	JList list;
+	public JTextField champRecherche;
+	public JTextField champNumero;
+	public JTextField champNom;
+	private JButton btnRecherche = new JButton("Recherche");
+	private JButton btnQuitter = new JButton("Quitter");
+	private JButton btnNouveau = new JButton("Nouveau");
+	private JButton btnAjouter = new JButton("Ajouter");
+	private JButton btnModifier = new JButton("Modifier");
+	private JButton btnSupprimer = new JButton("Supprimer");
+	private JLabel lblArtistes = new JLabel("Artistes");
+	private JButton btnRemplacer = new JButton("Remplacer");
+	private JLabel lblArtiste = new JLabel("Artistes");
+	private JLabel lblNumero = new JLabel("Num\u00E9ro");
+	private JLabel lblNom = new JLabel("Nom");
+	private JLabel lblMembre = new JLabel("Membre");
+	private JCheckBox checkMembre = new JCheckBox("");
+	private JLabel lblImageGauche = new JLabel("Image");
+	private JLabel lblDroite = new JLabel("Image");
+	private JList listAlbums;
+	
+	private JButton[] btnGroup = {btnRecherche,btnQuitter,btnNouveau, btnAjouter,btnModifier,btnSupprimer,btnRemplacer};
+	private JLabel[] imgGroupe = {lblImageGauche,lblDroite};
+	private JTextField[] texteGroupe = {champRecherche,champNumero,champNom};
 	
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable table = new JTable();
@@ -57,10 +59,10 @@ public class frmAfficher extends JFrame{
 		lblNewLabel.setBounds(22, 11, 159, 26);
 		getContentPane().add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(22, 39, 450, 30);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		champRecherche = new JTextField();
+		champRecherche.setBounds(22, 39, 450, 30);
+		getContentPane().add(champRecherche);
+		champRecherche.setColumns(10);
 		
 		btnRecherche.setBounds(477, 39, 100, 30);
 		getContentPane().add(btnRecherche);
@@ -103,22 +105,22 @@ public class frmAfficher extends JFrame{
 		lblMembre.setBounds(22, 393, 59, 26);
 		getContentPane().add(lblMembre);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(82, 320, 190, 30);
-		getContentPane().add(textField_1);
+		champNumero = new JTextField();
+		champNumero.setColumns(10);
+		champNumero.setBounds(82, 320, 190, 30);
+		getContentPane().add(champNumero);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(82, 355, 190, 30);
-		getContentPane().add(textField_2);
+		champNom = new JTextField();
+		champNom.setColumns(10);
+		champNom.setBounds(82, 355, 190, 30);
+		getContentPane().add(champNom);
 		
-		checkBoxMembre.setBounds(82, 396, 21, 21);
-		getContentPane().add(checkBoxMembre);
+		checkMembre.setBounds(82, 396, 21, 21);
+		getContentPane().add(checkMembre);
 		
-		list = new JList();
-		list.setBounds(282, 320, 218, 153);
-		getContentPane().add(list);
+		listAlbums = new JList();
+		listAlbums.setBounds(282, 320, 218, 153);
+		getContentPane().add(listAlbums);
 		
 		lblImageGauche.setBounds(22, 119, 100, 109);
 		getContentPane().add(lblImageGauche);
@@ -131,11 +133,11 @@ public class frmAfficher extends JFrame{
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"1", "alfred", Boolean.TRUE},
-				{"2", "alphred", null},
-				{"3", "all fred", null},
-				{"4", "alfe raide", Boolean.TRUE},
-				{"5", "al fraide", Boolean.TRUE},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
 				{null, null, null},
 				{null, null, null},
 				{null, null, null},
@@ -150,11 +152,11 @@ public class frmAfficher extends JFrame{
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			Class[] columnTypes = new Class[] {
-				Object.class, Object.class, Boolean.class
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
 			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
 			}
 		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(91);

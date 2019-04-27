@@ -1,29 +1,36 @@
 package vues;
 
-import java.awt.BorderLayout;
+
 import java.awt.Font;
 import java.awt.Label;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 import javax.swing.JTextField;
+
+import controleur.ControleurAuthentification;
+
 
 public class IdentificationUtilisateur extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	public Label lblco = new Label( "Connexion à l'application" );
-	public Label lblnom = new Label( "Nom d'utilisateur " );
-	public Label lblPwd = new Label( "Mot de passe " );
-	public JTextField txtNom = new JTextField();
-	public JTextField txtPwd = new JTextField();
-	public JButton valider = new JButton( "Valider" );
-	public JButton quitter = new JButton( "Quitter" );
-	public JPanel mid = new JPanel();
+	private Label lblco = new Label( "Connexion à l'application" );
+	private Label lblnom = new Label( "Nom d'utilisateur " );
+	private Label lblPwd = new Label( "Mot de passe " );
+	private JTextField txtNom = new JTextField();
+	private JTextField txtPwd = new JTextField();
+	private JButton valider = new JButton( "Valider" );
+	private JButton quitter = new JButton( "Quitter" );
+
+	private JTextField[] texteGroupe = {txtNom,txtPwd};
+	private JButton[] btnGroup = {valider,quitter};
 
 	public IdentificationUtilisateur() {
 
 		super( "Gestion des Albums" );
+		
+		
 		setSize( 500, 300 );
 		setResizable( false );
 		setBounds( 100, 100, 450, 300 );
@@ -63,8 +70,21 @@ public class IdentificationUtilisateur extends JFrame {
 		quitter.setBounds(223, 167, 170, 40);
 		getContentPane().add(quitter);
 		
+		ControleurAuthentification action = new ControleurAuthentification(this);
+		
+		valider.addActionListener(action);
+		quitter.addActionListener(action);
 		
 
 	}
+	
+	public JTextField[] getTexte() {
+		return texteGroupe;
+	}
+	
+	public JButton[] getBtn() {
+		return btnGroup;
+	}
+
 
 }

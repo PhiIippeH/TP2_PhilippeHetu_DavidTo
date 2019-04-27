@@ -12,8 +12,8 @@ public class Quitter {
 		if ( conf == JOptionPane.YES_OPTION ) {
 
 			System.exit(0);
-		}
-	}
+		} 
+	} 
 	
 
 
