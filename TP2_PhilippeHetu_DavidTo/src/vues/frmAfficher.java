@@ -35,7 +35,7 @@ public class frmAfficher extends JFrame{
 	private JButton btnSupprimer = new JButton("Supprimer");
 	private JLabel lblArtistes = new JLabel("Artistes");
 	private JButton btnRemplacer = new JButton("Remplacer");
-	private JLabel lblArtiste = new JLabel("Artistes");
+	private JLabel lblInfo = new JLabel("Informations");
 	private JLabel lblNumero = new JLabel("Num\u00E9ro");
 	private JLabel lblNom = new JLabel("Nom");
 	private JLabel lblMembre = new JLabel("Membre");
@@ -47,7 +47,7 @@ public class frmAfficher extends JFrame{
 	
 	private JButton[] btnGroup = {btnRecherche,btnQuitter,btnNouveau, btnAjouter,btnModifier,btnSupprimer,btnRemplacer};
 	private JLabel[] imgGroupe = {lblImageGauche,lblDroite};
-	private JTextField[] texteGroupe = {champRecherche,champNumero,champNom};
+	private JTextField[] texteGroupe = {null,null,null};
 	
 	private DefaultTableModel model;
 	
@@ -98,9 +98,9 @@ public class frmAfficher extends JFrame{
 		btnRemplacer.setBounds(22, 233, 100, 30);
 		getContentPane().add(btnRemplacer);
 		
-		lblArtiste.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
-		lblArtiste.setBounds(22, 283, 85, 30);
-		getContentPane().add(lblArtiste);
+		lblInfo.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 20));
+		lblInfo.setBounds(22, 283, 136, 30);
+		getContentPane().add(lblInfo);
 		
 		lblNumero.setFont(new Font("Arial", Font.ITALIC, 14));
 		lblNumero.setBounds(22, 324, 50, 26);
@@ -171,8 +171,9 @@ public class frmAfficher extends JFrame{
 		}
 		
 		
-			
-		
+		texteGroupe[0] = champRecherche;
+		texteGroupe[1] = champNumero;
+		texteGroupe[2] = champNom;
 	}
 	
 	public JButton[] getBtn(){
@@ -198,5 +199,8 @@ public class frmAfficher extends JFrame{
 		return model;
 	}
 	
+	public JCheckBox getCheckMembre(){
+		return checkMembre;
+	}
 	
 }

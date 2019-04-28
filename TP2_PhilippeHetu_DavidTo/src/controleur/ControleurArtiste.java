@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTable;
@@ -29,6 +30,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	private GestionArtistes gestion = new GestionArtistes();
 	private JTable table;
 	private JList liste;
+	private JCheckBox box;
 	
 	private DefaultTableModel model;
 		
@@ -43,6 +45,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		table = frm.getTable();
 		liste = frm.getListe();
 		model = frm.getModel();
+		box = frm.getCheckMembre();
 		
 		ArrayList<Artiste> listeArtiste = gestion.getListeArtiste();
 		
@@ -73,6 +76,9 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 			new Quitter();
 
 		} else if (e.getSource() == btns[2]) {
+			texts[1].setText("");
+			texts[2].setText("");
+			box.setSelected(false);
 
 		} else if (e.getSource() == btns[3]) {
 
