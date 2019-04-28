@@ -1,0 +1,2 @@
+Nom: root
+Mot de passe: root
