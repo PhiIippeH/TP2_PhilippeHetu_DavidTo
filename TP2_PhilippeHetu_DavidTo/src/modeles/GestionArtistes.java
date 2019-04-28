@@ -52,6 +52,24 @@ public class GestionArtistes {
 		return liste;
 	}
 
+	public ResultSet rechercheArtiste(String mot){
+		ResultSet resultatRecherche = null;
+		
+		String requete = "SELECT * FROM artiste where nom=" + mot;
+		try (Statement statement = connection.createStatement();
+				ResultSet jeuResultat = statement.executeQuery( requete )) {
+				resultatRecherche = jeuResultat;
+			
+		} catch ( SQLException sqle ) {
+			JOptionPane.showMessageDialog( null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
+					JOptionPane.ERROR_MESSAGE );
+		}
+		
+		return resultatRecherche;
+		
+	}
+	
+	
 	// La méthode d'ajout d'un employé retourne vrai si l'ajout dans la BD a
 	// réusi, faux si non
 	public boolean ajouterArtiste( Artiste artiste ) {
