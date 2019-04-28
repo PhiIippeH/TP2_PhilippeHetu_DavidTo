@@ -174,6 +174,8 @@ public class frmAfficher extends JFrame{
 		texteGroupe[0] = champRecherche;
 		texteGroupe[1] = champNumero;
 		texteGroupe[2] = champNom;
+		
+		table.getSelectionModel().addListSelectionListener(control);
 	}
 	
 	public JButton[] getBtn(){

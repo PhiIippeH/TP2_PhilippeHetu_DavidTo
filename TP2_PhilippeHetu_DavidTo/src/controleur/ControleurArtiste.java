@@ -57,6 +57,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 			String nom = artiste.getNom();
 			boolean membre = artiste.getMembre();
 			String photo = artiste.getPhoto();
+		
 			
 			model.addRow(new Object[]{num,nom,membre});
 			
@@ -88,8 +89,20 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
+		int indice = table.getSelectedRow();
+		int numero =(int) table.getValueAt(indice, 0);
+		String nom = (String) table.getValueAt(indice, 1);
+		boolean membre = (boolean) table.getValueAt(indice, 2);
 		
+		texts[1].setText("" + numero);
+		texts[2].setText("" + nom);
 		
+		if (membre) {
+			box.setSelected(true);
+		} else {
+			box.setSelected(false);
+		}
+	
 	}
 	
 	
