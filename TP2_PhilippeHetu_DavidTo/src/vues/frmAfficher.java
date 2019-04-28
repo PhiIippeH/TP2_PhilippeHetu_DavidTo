@@ -129,6 +129,10 @@ public class frmAfficher extends JFrame{
 		getContentPane().add(lblDroite);
 		scrollPane.setBounds(136, 80, 458, 187);
 		
+		JButton btnAideEnLigne = new JButton("Aide en ligne");
+		btnAideEnLigne.setBounds(613, 92, 100, 30);
+		getContentPane().add(btnAideEnLigne);
+		
 		getContentPane().add(scrollPane);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setModel(new DefaultTableModel(
