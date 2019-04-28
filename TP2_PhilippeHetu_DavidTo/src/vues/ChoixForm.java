@@ -26,6 +26,9 @@ public class ChoixForm extends JFrame {
 		getContentPane().add(getBtnAlbums());
 		getContentPane().add(getBtnQuitter());
 		btnArtiste.addActionListener(controlMenu);
+		btnQuitter.addActionListener(controlMenu);
+		
+		
 	}
 
 	public JButton getBtnArtiste() {

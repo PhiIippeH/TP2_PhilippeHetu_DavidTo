@@ -15,6 +15,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import controleur.ControleurArtiste;
+
+import utilitaire.Rendu;
+
 import javax.swing.ListSelectionModel;
 
 public class frmAfficher extends JFrame{
@@ -39,16 +43,21 @@ public class frmAfficher extends JFrame{
 	private JLabel lblImageGauche = new JLabel("Image");
 	private JLabel lblDroite = new JLabel("Image");
 	private JList listAlbums;
+	private ControleurArtiste control;
 	
 	private JButton[] btnGroup = {btnRecherche,btnQuitter,btnNouveau, btnAjouter,btnModifier,btnSupprimer,btnRemplacer};
 	private JLabel[] imgGroupe = {lblImageGauche,lblDroite};
 	private JTextField[] texteGroupe = {champRecherche,champNumero,champNom};
 	
+	private DefaultTableModel model;
+	
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable table = new JTable();
+	
 	public frmAfficher(){
 		
 		super( "Gestion des Artistes" );
+		
 		setResizable( false );
 		setBounds( 100, 100, 750, 525 );
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -129,25 +138,11 @@ public class frmAfficher extends JFrame{
 		getContentPane().add(lblDroite);
 		scrollPane.setBounds(136, 80, 458, 187);
 		
-		JButton btnAideEnLigne = new JButton("Aide en ligne");
-		btnAideEnLigne.setBounds(613, 92, 100, 30);
-		getContentPane().add(btnAideEnLigne);
-		
 		getContentPane().add(scrollPane);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
+		
+		table.setModel( model = new DefaultTableModel(
+			null,
 			new String[] {
 				"Num\u00E9ro d'artiste", "Nom", "Membre"
 			}
@@ -165,12 +160,43 @@ public class frmAfficher extends JFrame{
 		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(91);
 		
-		scrollPane.setViewportView(table);		
+		table.getColumnModel().getColumn(0).setCellRenderer(new Rendu());
+		
+		scrollPane.setViewportView(table);	
+		
+		control = new ControleurArtiste(this);
+		
+		for (int i = 0; i < btnGroup.length; i++) {
+			btnGroup[i].addActionListener(control);
+		}
+		
+		
 			
 		
 	}
 	
+	public JButton[] getBtn(){
+		return btnGroup;
+	}
 	
+	public JLabel[] getImg(){
+		return imgGroupe;
+	}
+	
+	public JTextField[] getTextes(){
+		return texteGroupe;
+	}
+	
+	public JTable getTable(){
+		return table;
+	}
+	public JList getListe(){
+		return listAlbums;
+	}
+	
+	public DefaultTableModel getModel(){
+		return model;
+	}
 	
 	
 }

@@ -25,15 +25,15 @@ public class GestionArtistes {
 	 */
 
 	public GestionArtistes() {
-		ControlConnection.connecter();
-		listeArtistes = obtenirListeAlbums();
+		
+		listeArtistes = obtenirListeArtiste();
 	}
 
 	public ArrayList<Artiste> getListeArtiste() {
 		return listeArtistes;
 	}
 
-	private ArrayList<Artiste> obtenirListeAlbums() {
+	private ArrayList<Artiste> obtenirListeArtiste() {
 		ArrayList<Artiste> liste = new ArrayList<Artiste>();
 		String requete = "SELECT * FROM artiste ORDER BY numero";
 		try (Statement statement = connection.createStatement();
@@ -90,12 +90,8 @@ public class GestionArtistes {
 
 	public boolean supprimerArtiste( Artiste artiste ) {
 		boolean boolSup = false;
-		String requete = "delete from artiste where nom=" 
-		+ artiste.getNom() 
-		+ " and numero=" 
+		String requete = "delete from artiste where and numero=" 
 		+ artiste.getNumero() 
-		+ " and membre"
-		+ artiste.getMembre()
 		+ ";";
 		
 		try{

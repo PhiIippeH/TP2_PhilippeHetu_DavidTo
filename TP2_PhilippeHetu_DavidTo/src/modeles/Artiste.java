@@ -18,20 +18,24 @@ public class Artiste {
 
 
 	public int getNumero() {
-		// TODO Auto-generated method stub
+		
 		return this.numero;
 	}
 
 
 	public String getNom() {
-		// TODO Auto-generated method stub
+		
 		return this.nom;
 	}
 
 
 	public boolean getMembre() {
-		// TODO Auto-generated method stub
+		
 		return this.membre;
+	}
+	
+	public String getPhoto(){
+		return photo;
 	}
 	
 	
