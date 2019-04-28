@@ -25,7 +25,7 @@ public class GestionArtistes {
 	 */
 
 	public GestionArtistes() {
-		
+
 		listeArtistes = obtenirListeArtiste();
 	}
 
@@ -56,8 +56,9 @@ public class GestionArtistes {
 		ResultSet resultatRecherche = null;
 
 		String requete = "SELECT * FROM artiste where nom=" + mot;
-		try (Statement statement = connection.createStatement();
-				ResultSet jeuResultat = statement.executeQuery( requete )) {
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet jeuResultat = statement.executeQuery( requete );
 			resultatRecherche = jeuResultat;
 
 		} catch ( SQLException sqle ) {
@@ -73,8 +74,8 @@ public class GestionArtistes {
 	// réusi, faux si non
 	public boolean ajouterArtiste( Artiste artiste ) {
 		boolean boolAjout = false;
-		String requete = "Insert into artiste(numero, nom, membre) values ('" + artiste.getNumero() + ","
-				+ artiste.getNom() + "," + artiste.getMembre() + "');";
+		String requete = "insert into artiste (numero, nom, membre, photo) values (" + artiste.getNumero() + ",'"
+				+ artiste.getNom() + "'," + artiste.getMembre() + ",'" + artiste.getPhoto() + "')";
 
 		try {
 			Statement statement = connection.createStatement();
@@ -90,20 +91,18 @@ public class GestionArtistes {
 
 	public boolean supprimerArtiste( Artiste artiste ) {
 		boolean boolSup = false;
-		String requete = "delete from artiste where and numero=" 
-		+ artiste.getNumero() 
-		+ ";";
-		
-		try{
+		String requete = "delete from artiste where numero=" + artiste.getNumero() + ";";
+
+		try {
 			Statement st = connection.createStatement();
 			st.executeUpdate( requete );
 			boolSup = true;
-		} catch (SQLException sqle){
+		} catch ( SQLException sqle ) {
 			JOptionPane.showMessageDialog( null,
 					"Probl\u00E8me rencontr\u00E9 lors de la suppression de l'artiste: " + sqle.getMessage(),
 					"Résultat", JOptionPane.ERROR_MESSAGE );
 		}
-		
+
 		return boolSup;
 
 	}

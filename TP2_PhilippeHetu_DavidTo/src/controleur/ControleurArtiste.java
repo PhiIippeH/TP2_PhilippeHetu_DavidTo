@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
@@ -26,9 +27,8 @@ import modeles.GestionArtistes;
 import utilitaire.Rendu;
 import vues.frmAfficher;
 
+public class ControleurArtiste extends MouseAdapter implements ActionListener, ListSelectionListener {
 
-public class ControleurArtiste extends MouseAdapter implements ActionListener, ListSelectionListener{
-	
 	private frmAfficher frm;
 	private JButton[] btns;
 	private JLabel[] imgs;
@@ -37,16 +37,13 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	private JTable table;
 	private JList liste;
 	private JCheckBox box;
-	
+
 	private ImageIcon imgArtiste;
-	private ImageIcon  imgAlbum;
-	
+	private ImageIcon imgAlbum;
+
 	private DefaultTableModel model;
-		
-	
-	
-	
-	public ControleurArtiste(frmAfficher form) {
+
+	public ControleurArtiste( frmAfficher form ) {
 		frm = form;
 		btns = frm.getBtn();
 		imgs = frm.getImg();
@@ -57,84 +54,83 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		box = frm.getCheckMembre();
 		BufferedImage img = null;
 		try {
-		    img = ImageIO.read(new File("img/defaut.png"));
-		} catch (IOException e) {
-		    e.printStackTrace();
+			img = ImageIO.read( new File( "img/defaut.png" ) );
+		} catch ( IOException e ) {
+			e.printStackTrace();
 		}
-		
-		Image dimg = img.getScaledInstance(imgs[0].getWidth(), imgs[0].getHeight(),
-		        Image.SCALE_SMOOTH);
-		
-		imgArtiste = new ImageIcon(dimg);
-		
-		imgs[0].setIcon(imgArtiste);
-		
-		dimg = img.getScaledInstance(imgs[1].getWidth(), imgs[1].getHeight(),
-		        Image.SCALE_SMOOTH);
-		
-		imgAlbum = new ImageIcon(dimg);
-		
-		imgs[1].setIcon(imgAlbum);
-		
-		
+
+		Image dimg = img.getScaledInstance( imgs[0].getWidth(), imgs[0].getHeight(), Image.SCALE_SMOOTH );
+
+		imgArtiste = new ImageIcon( dimg );
+
+		imgs[0].setIcon( imgArtiste );
+
+		dimg = img.getScaledInstance( imgs[1].getWidth(), imgs[1].getHeight(), Image.SCALE_SMOOTH );
+
+		imgAlbum = new ImageIcon( dimg );
+
+		imgs[1].setIcon( imgAlbum );
+
 		ArrayList<Artiste> listeArtiste = gestion.getListeArtiste();
-		
-		
-		
-		for (int i = 0; i < listeArtiste.size(); i++) {
-			Artiste artiste = listeArtiste.get(i);
+
+		JCheckBox checkMembre;
+		for ( int i = 0; i < listeArtiste.size(); i++ ) {
+			Artiste artiste = listeArtiste.get( i );
+			checkMembre = new JCheckBox();
 			int num = artiste.getNumero();
 			String nom = artiste.getNom();
-			boolean membre = artiste.getMembre();
+			checkMembre.setSelected( artiste.getMembre() );
 			String photo = artiste.getPhoto();
-		
-			
-			model.addRow(new Object[]{num,nom,membre});
-			
+
+			model.addRow( new Object[] { num, nom, checkMembre } );
+
 		}
-		table.setModel(model);
-	
+		table.setModel( model );
+
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed( ActionEvent e ) {
 
-		if (e.getSource() == btns[0]) {
-			
-			
-			
-		} else if (e.getSource() == btns[1]) {
+		if ( e.getSource() == btns[0] ) {
+
+		} else if ( e.getSource() == btns[1] ) {
 			new Quitter();
 
-		} else if (e.getSource() == btns[2]) {
-			texts[1].setText("");
-			texts[2].setText("");
-			box.setSelected(false);
+		} else if ( e.getSource() == btns[2] ) {
+			texts[1].setText( "" );
+			texts[2].setText( "" );
+			box.setSelected( false );
 
-		} else if (e.getSource() == btns[3]) {
+		} else if ( e.getSource() == btns[3] ) {
+				if ( !texts[1].getText().isEmpty() && !texts[2].getText().isEmpty() ) {
+					gestion.ajouterArtiste( new Artiste( Integer.parseInt( texts[1].getText() ), texts[2].getText(),
+							box.isSelected(), "img/defaut.png" ) );
+				}else{
+					JOptionPane.showMessageDialog( null, "Les champs numero et nom de l'artiste ne peut être vide.",
+							"Erreur", JOptionPane.ERROR_MESSAGE );
+				}
 
 		}
 
 	}
 
 	@Override
-	public void valueChanged(ListSelectionEvent e) {
+	public void valueChanged( ListSelectionEvent e ) {
 		int indice = table.getSelectedRow();
-		int numero =(int) table.getValueAt(indice, 0);
-		String nom = (String) table.getValueAt(indice, 1);
-		boolean membre = (boolean) table.getValueAt(indice, 2);
-		
-		texts[1].setText("" + numero);
-		texts[2].setText("" + nom);
-		
-		if (membre) {
-			box.setSelected(true);
+		int numero = (int) table.getValueAt( indice, 0 );
+		String nom = (String) table.getValueAt( indice, 1 );
+		boolean membre = (boolean) table.getValueAt( indice, 2 );
+
+		texts[1].setText( "" + numero );
+		texts[2].setText( "" + nom );
+
+		if ( membre ) {
+			box.setSelected( true );
 		} else {
-			box.setSelected(false);
+			box.setSelected( false );
 		}
-	
+
 	}
-	
-	
 
 }
