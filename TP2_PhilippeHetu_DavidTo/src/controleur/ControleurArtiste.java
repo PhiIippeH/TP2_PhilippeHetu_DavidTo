@@ -1,10 +1,16 @@
 package controleur;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -32,6 +38,9 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	private JList liste;
 	private JCheckBox box;
 	
+	private ImageIcon imgArtiste;
+	private ImageIcon  imgAlbum;
+	
 	private DefaultTableModel model;
 		
 	
@@ -46,6 +55,27 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		liste = frm.getListe();
 		model = frm.getModel();
 		box = frm.getCheckMembre();
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File("img/defaut.png"));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
+		Image dimg = img.getScaledInstance(imgs[0].getWidth(), imgs[0].getHeight(),
+		        Image.SCALE_SMOOTH);
+		
+		imgArtiste = new ImageIcon(dimg);
+		
+		imgs[0].setIcon(imgArtiste);
+		
+		dimg = img.getScaledInstance(imgs[1].getWidth(), imgs[1].getHeight(),
+		        Image.SCALE_SMOOTH);
+		
+		imgAlbum = new ImageIcon(dimg);
+		
+		imgs[1].setIcon(imgAlbum);
+		
 		
 		ArrayList<Artiste> listeArtiste = gestion.getListeArtiste();
 		

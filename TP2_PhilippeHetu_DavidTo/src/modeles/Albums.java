@@ -14,5 +14,10 @@ public class Albums {
 		this.image = _image;
 
 	}
+	
+	@Override
+	public String toString(){
+		return annee + " " + titre;
+	}
 
 }
