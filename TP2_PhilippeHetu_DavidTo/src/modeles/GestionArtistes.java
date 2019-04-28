@@ -52,29 +52,29 @@ public class GestionArtistes {
 		return liste;
 	}
 
-	public ResultSet rechercheArtiste(String mot){
+	public ResultSet rechercheArtiste( String mot ) {
 		ResultSet resultatRecherche = null;
-		
+
 		String requete = "SELECT * FROM artiste where nom=" + mot;
 		try (Statement statement = connection.createStatement();
 				ResultSet jeuResultat = statement.executeQuery( requete )) {
-				resultatRecherche = jeuResultat;
-			
+			resultatRecherche = jeuResultat;
+
 		} catch ( SQLException sqle ) {
 			JOptionPane.showMessageDialog( null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
 					JOptionPane.ERROR_MESSAGE );
 		}
-		
+
 		return resultatRecherche;
-		
+
 	}
-	
-	
+
 	// La méthode d'ajout d'un employé retourne vrai si l'ajout dans la BD a
 	// réusi, faux si non
 	public boolean ajouterArtiste( Artiste artiste ) {
 		boolean boolAjout = false;
-		String requete = "";
+		String requete = "Insert into artiste(numero, nom, membre) values ('" + artiste.getNumero() + ","
+				+ artiste.getNom() + "," + artiste.getMembre() + "');";
 
 		try {
 			Statement statement = connection.createStatement();
@@ -82,14 +82,33 @@ public class GestionArtistes {
 			boolAjout = true; // L'ajout réussi
 		} catch ( SQLException sqle ) {
 			JOptionPane.showMessageDialog( null,
-					"Probl\u00E8me rencontr\u00E9 lors de l'enregistrement de l'employ\u00E9: " + sqle.getMessage(),
+					"Probl\u00E8me rencontr\u00E9 lors de l'enregistrement de l'artiste: " + sqle.getMessage(),
 					"Résultat", JOptionPane.ERROR_MESSAGE );
 		}
 		return boolAjout;
 	}
 
 	public boolean supprimerArtiste( Artiste artiste ) {
-		return false;
+		boolean boolSup = false;
+		String requete = "delete from artiste where nom=" 
+		+ artiste.getNom() 
+		+ " and numero=" 
+		+ artiste.getNumero() 
+		+ " and membre"
+		+ artiste.getMembre()
+		+ ";";
+		
+		try{
+			Statement st = connection.createStatement();
+			st.executeUpdate( requete );
+			boolSup = true;
+		} catch (SQLException sqle){
+			JOptionPane.showMessageDialog( null,
+					"Probl\u00E8me rencontr\u00E9 lors de la suppression de l'artiste: " + sqle.getMessage(),
+					"Résultat", JOptionPane.ERROR_MESSAGE );
+		}
+		
+		return boolSup;
 
 	}
 
