@@ -115,11 +115,13 @@ public class frmAfficher extends JFrame{
 		getContentPane().add(lblMembre);
 		
 		champNumero = new JTextField();
+		champNumero.setEditable(false);
 		champNumero.setColumns(10);
 		champNumero.setBounds(82, 320, 190, 30);
 		getContentPane().add(champNumero);
 		
 		champNom = new JTextField();
+		champNom.setEditable(false);
 		champNom.setColumns(10);
 		champNom.setBounds(82, 355, 190, 30);
 		getContentPane().add(champNom);
