@@ -74,8 +74,14 @@ public class GestionArtistes {
 	// réusi, faux si non
 	public boolean ajouterArtiste( Artiste artiste ) {
 		boolean boolAjout = false;
+		int var;
+		if(artiste.getMembre()){
+			var = 1;
+		}else{
+			var = 0;
+		}
 		String requete = "insert into artiste (numero, nom, membre, photo) values (" + artiste.getNumero() + ",'"
-				+ artiste.getNom() + "'," + artiste.getMembre() + ",'" + artiste.getPhoto() + "')";
+				+ artiste.getNom() + "'," + var + ",'" + artiste.getPhoto() + "')";
 
 		try {
 			Statement statement = connection.createStatement();
