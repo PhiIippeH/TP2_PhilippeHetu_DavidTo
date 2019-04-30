@@ -23,14 +23,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-
-
-
 import modeles.Albums;
 import modeles.Artiste;
 import modeles.GestionArtistes;
-
+import modeles.ModeleArtiste;
 import vues.frmAfficher;
 
 
@@ -48,7 +44,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	private ImageIcon imgArtiste;
 	private ImageIcon  imgAlbum;
 	
-	private DefaultTableModel model;
+	private ModeleArtiste model;
 		
 	
 	
@@ -59,7 +55,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		texts = frm.getTextes();
 		table = frm.getTable();
 		liste = frm.getListe();
-		model = frm.getModel();
+		model = frm.getModelArtiste();
 		box = frm.getCheckMembre();
 
 		imgArtiste = new ImageIcon(resizeImage("img/defaut.png", imgs[0].getWidth(), imgs[0].getHeight()));
@@ -69,8 +65,8 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		imgAlbum = new ImageIcon(resizeImage("img/defaut.png", imgs[1].getWidth(), imgs[1].getHeight()));
 
 		imgs[1].setIcon(imgAlbum);
-
-		loadJTable();
+		
+		//loadJTable();
 
 	}
 
@@ -80,11 +76,9 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		if (e.getSource() == btns[0]) {
 			if (btns[0].getText() != "") {
 				ResultSet result = gestion.rechercheArtiste(texts[0].getText());
-			resetJTable();
+			   
 				try {
 					while (result.next()) {
-						
-						model.addRow(new Object[] { result.getInt("Numero"), result.getString("nom"), result.getBoolean("membre") });
 						
 					}
 					table.setModel(model);
@@ -93,7 +87,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 					e1.printStackTrace();
 				}
 			} else {
-				loadJTable();
+				//loadJTable();
 			}
 			
 			
@@ -112,6 +106,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 			if ( !texts[1].getText().isEmpty() && !texts[2].getText().isEmpty() ) {
 				gestion.ajouterArtiste( new Artiste( Integer.parseInt( texts[1].getText() ), texts[2].getText(),
 						box.isSelected(), "img/defaut.png" ) );
+				model.fireTableDataChanged();
 			}else{
 				JOptionPane.showMessageDialog( null, "Les champs numero et nom de l'artiste ne peut être vide.",
 						"Erreur", JOptionPane.ERROR_MESSAGE );
@@ -178,28 +173,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		        Image.SCALE_SMOOTH);
 		
 		return dimg;
-	}
+	}	
 	
-	private void loadJTable(){
-		ArrayList<Artiste> listeArtiste = gestion.getListeArtiste();
-
-		for (int i = 0; i < listeArtiste.size(); i++) {
-			Artiste artiste = listeArtiste.get(i);
-			int num = artiste.getNumero();
-			String nom = artiste.getNom();
-			boolean membre = artiste.getMembre();
-
-			model.addRow(new Object[] { num, nom, membre });
-
-		}
-		table.setModel(model);
-	}
-	
-	private void resetJTable(){
-		int nb = model.getRowCount();
-		for (int i = 0; i < nb; i++) {
-			model.removeRow(nb-(i+1));
-		}
-	}
 
 }

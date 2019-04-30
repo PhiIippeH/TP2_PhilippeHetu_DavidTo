@@ -27,7 +27,7 @@ public class GestionAlbums {
 		return listeAlbums;
 	}
 
-	private ArrayList<Albums> obtenirListeAlbums() {
+	public ArrayList<Albums> obtenirListeAlbums() {
 		ArrayList<Albums> liste = new ArrayList<Albums>();
 		String requete = "SELECT * FROM albums ORDER BY numero";
 		try (Statement statement = connection.createStatement();

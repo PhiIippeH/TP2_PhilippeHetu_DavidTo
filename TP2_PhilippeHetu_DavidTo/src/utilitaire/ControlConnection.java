@@ -98,5 +98,5 @@ public class ControlConnection {
 	
 	public static Connection getLaConnexion() {
 		return laConnexion;
-		}
+	}
 }

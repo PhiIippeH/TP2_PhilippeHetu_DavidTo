@@ -13,10 +13,12 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import controleur.ControleurArtiste;
-
+import modeles.GestionArtistes;
+import modeles.ModeleArtiste;
 import utilitaire.Rendu;
 
 import javax.swing.ListSelectionModel;
@@ -27,21 +29,25 @@ public class frmAfficher extends JFrame{
 	public JTextField champRecherche;
 	public JTextField champNumero;
 	public JTextField champNom;
+	
 	private JButton btnRecherche = new JButton("Recherche");
 	private JButton btnQuitter = new JButton("Quitter");
 	private JButton btnNouveau = new JButton("Nouveau");
 	private JButton btnAjouter = new JButton("Ajouter");
 	private JButton btnModifier = new JButton("Modifier");
 	private JButton btnSupprimer = new JButton("Supprimer");
-	private JLabel lblArtistes = new JLabel("Artistes");
 	private JButton btnRemplacer = new JButton("Remplacer");
+	
+	private JLabel lblArtistes = new JLabel("Artistes");
 	private JLabel lblInfo = new JLabel("Informations");
 	private JLabel lblNumero = new JLabel("Num\u00E9ro");
 	private JLabel lblNom = new JLabel("Nom");
 	private JLabel lblMembre = new JLabel("Membre");
-	private JCheckBox checkMembre = new JCheckBox("");
 	private JLabel lblImageGauche = new JLabel("Image");
 	private JLabel lblDroite = new JLabel("Image");
+	
+	private JCheckBox checkMembre = new JCheckBox("");
+	
 	private JList<String> listAlbums;
 	private ControleurArtiste control;
 	
@@ -51,8 +57,13 @@ public class frmAfficher extends JFrame{
 	
 	private DefaultTableModel model;
 	
-	private final JScrollPane scrollPane = new JScrollPane();
-	private final JTable table = new JTable();
+	private JScrollPane scrollPane = new JScrollPane();
+	private JTable table = new JTable();
+	
+	private ModeleArtiste artistTableModel;
+	private Rendu renderer;
+	
+	private GestionArtistes modeleArtiste;
 	
 	public frmAfficher(){
 		
@@ -138,33 +149,19 @@ public class frmAfficher extends JFrame{
 		
 		lblDroite.setBounds(527, 320, 186, 153);
 		getContentPane().add(lblDroite);
-		scrollPane.setBounds(136, 80, 458, 187);
+	
+		modeleArtiste = new GestionArtistes();
 		
-		getContentPane().add(scrollPane);
+		//listAlbums = new JList<String>(listeNomsAlbums);
+		
+		artistTableModel = new ModeleArtiste(modeleArtiste.getListeArtiste());
+		
+		table = new JTable(artistTableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane = new JScrollPane(table);
 		
-		table.setModel( model = new DefaultTableModel(
-			null,
-			new String[] {
-				"Num\u00E9ro d'artiste", "Nom", "Membre"
-			}
-		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(91);
-		
-		table.getColumnModel().getColumn(0).setCellRenderer(new Rendu());
-		
-		scrollPane.setViewportView(table);	
+		scrollPane.setBounds(136, 80, 458, 187);
+		getContentPane().add(scrollPane);	
 		
 		control = new ControleurArtiste(this);
 		
@@ -172,12 +169,10 @@ public class frmAfficher extends JFrame{
 			btnGroup[i].addActionListener(control);
 		}
 		
-		
 		texteGroupe[0] = champRecherche;
 		texteGroupe[1] = champNumero;
 		texteGroupe[2] = champNom;
 		
-		table.getSelectionModel().addListSelectionListener(control);
 	}
 	
 	public JButton[] getBtn(){
@@ -201,6 +196,9 @@ public class frmAfficher extends JFrame{
 	
 	public DefaultTableModel getModel(){
 		return model;
+	}
+	public ModeleArtiste getModelArtiste(){
+		return artistTableModel;
 	}
 	
 	public JCheckBox getCheckMembre(){
