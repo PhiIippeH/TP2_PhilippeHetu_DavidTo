@@ -38,33 +38,33 @@ public class GestionArtistes {
 		String requete = "SELECT * FROM artiste ORDER BY numero";
 		try {
 			Statement statement = connection.createStatement();
-			ResultSet jeuResultat = statement.executeQuery(requete);
-			while (jeuResultat.next()) {
-				int numero = jeuResultat.getInt("numero");
-				String nom = jeuResultat.getString("nom");
-				String photo = jeuResultat.getString("photo");
-				boolean membre = jeuResultat.getBoolean("membre");
-				liste.add(new Artiste(numero, nom, membre, photo));
+			ResultSet jeuResultat = statement.executeQuery( requete );
+			while ( jeuResultat.next() ) {
+				int numero = jeuResultat.getInt( "numero" );
+				String nom = jeuResultat.getString( "nom" );
+				String photo = jeuResultat.getString( "photo" );
+				boolean membre = jeuResultat.getBoolean( "membre" );
+				liste.add( new Artiste( numero, nom, membre, photo ) );
 			}
-		} catch (SQLException sqle) {
-			JOptionPane.showMessageDialog(null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
-					JOptionPane.ERROR_MESSAGE);
+		} catch ( SQLException sqle ) {
+			JOptionPane.showMessageDialog( null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
+					JOptionPane.ERROR_MESSAGE );
 		}
 		return liste;
 	}
 
-	public ResultSet rechercheArtiste(String mot) {
+	public ResultSet rechercheArtiste( String mot ) {
 		ResultSet resultatRecherche = null;
 
 		String requete = "SELECT * FROM artiste where nom like '%" + mot + "%'";
 		try {
 			Statement statement = connection.createStatement();
-			ResultSet jeuResultat = statement.executeQuery(requete);
+			ResultSet jeuResultat = statement.executeQuery( requete );
 			resultatRecherche = jeuResultat;
 
-		} catch (SQLException sqle) {
-			JOptionPane.showMessageDialog(null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
-					JOptionPane.ERROR_MESSAGE);
+		} catch ( SQLException sqle ) {
+			JOptionPane.showMessageDialog( null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
+					JOptionPane.ERROR_MESSAGE );
 		}
 
 		return resultatRecherche;
@@ -73,10 +73,10 @@ public class GestionArtistes {
 
 	// La méthode d'ajout d'un employé retourne vrai si l'ajout dans la BD a
 	// réusi, faux si non
-	public void ajouterArtiste(Artiste artiste) {
+	public void ajouterArtiste( Artiste artiste ) {
 
 		int var;
-		if (artiste.getMembre()) {
+		if ( artiste.getMembre() ) {
 			var = 1;
 		} else {
 			var = 0;
@@ -86,56 +86,53 @@ public class GestionArtistes {
 
 		try {
 			Statement statement = connection.createStatement();
-			statement.executeUpdate(requete);
+			statement.executeUpdate( requete );
 
-		} catch (SQLException sqle) {
-			JOptionPane.showMessageDialog(null,
+		} catch ( SQLException sqle ) {
+			JOptionPane.showMessageDialog( null,
 					"Probl\u00E8me rencontr\u00E9 lors de l'enregistrement de l'artiste: " + sqle.getMessage(),
-					"Résultat", JOptionPane.ERROR_MESSAGE);
+					"Résultat", JOptionPane.ERROR_MESSAGE );
 		}
 
 	}
 
-	public boolean supprimerArtiste(Artiste artiste) {
+	public boolean supprimerArtiste( Artiste artiste ) {
 		boolean boolSup = false;
 		String requete = "delete from artiste where numero=" + artiste.getNumero() + ";";
 
 		try {
 			Statement st = connection.createStatement();
-			st.executeUpdate(requete);
+			st.executeUpdate( requete );
 			boolSup = true;
-		} catch (SQLException sqle) {
-			JOptionPane.showMessageDialog(null,
+		} catch ( SQLException sqle ) {
+			JOptionPane.showMessageDialog( null,
 					"Probl\u00E8me rencontr\u00E9 lors de la suppression de l'artiste: " + sqle.getMessage(),
-					"Résultat", JOptionPane.ERROR_MESSAGE);
+					"Résultat", JOptionPane.ERROR_MESSAGE );
 		}
 
 		return boolSup;
 
 	}
 
-	public ArrayList<Albums> getAlbumDeArtiste(int numero) {
-
-	
+	public ArrayList<Albums> getAlbumDeArtiste( int numero ) {
 
 		String requete = "SELECT * FROM albums WHERE numero_artiste = " + numero;
 		ArrayList<Albums> listeAlbums = new ArrayList<>();
-		
+
 		try {
 			Statement statement = connection.createStatement();
-			ResultSet jeuResultat = statement.executeQuery(requete);
-			
-			
-			while (jeuResultat.next()) {
-				listeAlbums.add(new Albums(jeuResultat.getInt("numero"), jeuResultat.getString("titre"), jeuResultat.getString("genre"), 
-						jeuResultat.getInt("annee"), jeuResultat.getString("image"), jeuResultat.getInt("numero_artiste")));
+			ResultSet jeuResultat = statement.executeQuery( requete );
+
+			while ( jeuResultat.next() ) {
+				listeAlbums.add( new Albums( jeuResultat.getInt( "numero" ), jeuResultat.getString( "titre" ),
+						jeuResultat.getString( "genre" ), jeuResultat.getInt( "annee" ),
+						jeuResultat.getString( "image" ), jeuResultat.getInt( "numero_artiste" ) ) );
 			}
 
-		} catch (SQLException sqle) {
-			JOptionPane.showMessageDialog(null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
-					JOptionPane.ERROR_MESSAGE);
+		} catch ( SQLException sqle ) {
+			JOptionPane.showMessageDialog( null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
+					JOptionPane.ERROR_MESSAGE );
 		}
-		
 
 		return listeAlbums;
 

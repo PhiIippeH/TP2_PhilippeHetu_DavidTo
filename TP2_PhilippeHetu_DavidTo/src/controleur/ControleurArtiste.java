@@ -116,6 +116,12 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 				JOptionPane.showMessageDialog( null, "Les champs numero et nom de l'artiste ne peut être vide.",
 						"Erreur", JOptionPane.ERROR_MESSAGE );
 			}
+		}else if(e.getSource() == btns[5]){
+			int indice = table.getSelectedRow();
+			int numero =(int) table.getValueAt(indice, 0);
+			String nom = (String) table.getValueAt(indice, 1);
+			boolean membre = (boolean) table.getValueAt(indice, 2);
+			gestion.supprimerArtiste( new Artiste( numero, nom, membre, "" ) );
 		}
 
 	}
