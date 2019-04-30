@@ -26,7 +26,7 @@ import javax.swing.event.ListSelectionListener;
 import modeles.Albums;
 import modeles.Artiste;
 import modeles.GestionArtistes;
-import modeles.ModeleArtiste;
+import utilitaire.ModeleArtiste;
 import vues.frmAfficher;
 
 
@@ -104,9 +104,10 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 
 		} else if (e.getSource() == btns[3]) {
 			if ( !texts[1].getText().isEmpty() && !texts[2].getText().isEmpty() ) {
-				gestion.ajouterArtiste( new Artiste( Integer.parseInt( texts[1].getText() ), texts[2].getText(),
-						box.isSelected(), "img/defaut.png" ) );
-				model.fireTableDataChanged();
+				Artiste artiste = new Artiste( Integer.parseInt( texts[1].getText() ), texts[2].getText(),
+						box.isSelected(), "img/defaut.png" );
+				gestion.ajouterArtiste( artiste );
+				model.addArtiste(artiste);
 			}else{
 				JOptionPane.showMessageDialog( null, "Les champs numero et nom de l'artiste ne peut être vide.",
 						"Erreur", JOptionPane.ERROR_MESSAGE );

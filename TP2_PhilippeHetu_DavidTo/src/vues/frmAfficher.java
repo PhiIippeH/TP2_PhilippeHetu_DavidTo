@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controleur.ControleurArtiste;
 import modeles.GestionArtistes;
-import modeles.ModeleArtiste;
+import utilitaire.ModeleArtiste;
 import utilitaire.Rendu;
 
 import javax.swing.ListSelectionModel;
