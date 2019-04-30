@@ -42,7 +42,7 @@ public class frmAfficher extends JFrame{
 	private JCheckBox checkMembre = new JCheckBox("");
 	private JLabel lblImageGauche = new JLabel("Image");
 	private JLabel lblDroite = new JLabel("Image");
-	private JList listAlbums;
+	private JList<String> listAlbums;
 	private ControleurArtiste control;
 	
 	private JButton[] btnGroup = {btnRecherche,btnQuitter,btnNouveau, btnAjouter,btnModifier,btnSupprimer,btnRemplacer};
@@ -129,7 +129,7 @@ public class frmAfficher extends JFrame{
 		checkMembre.setBounds(82, 396, 21, 21);
 		getContentPane().add(checkMembre);
 		
-		listAlbums = new JList();
+		listAlbums = new JList<String>();
 		listAlbums.setBounds(282, 320, 218, 153);
 		getContentPane().add(listAlbums);
 		
@@ -195,7 +195,7 @@ public class frmAfficher extends JFrame{
 	public JTable getTable(){
 		return table;
 	}
-	public JList getListe(){
+	public JList<String> getListe(){
 		return listAlbums;
 	}
 	

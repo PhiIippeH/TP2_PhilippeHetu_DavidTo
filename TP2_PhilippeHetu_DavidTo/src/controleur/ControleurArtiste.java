@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -24,9 +25,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+
+
+import modeles.Albums;
 import modeles.Artiste;
 import modeles.GestionArtistes;
-import utilitaire.Rendu;
+
 import vues.frmAfficher;
 
 
@@ -38,7 +42,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	private JTextField[] texts;
 	private GestionArtistes gestion = new GestionArtistes();
 	private JTable table;
-	private JList liste;
+	private JList<String> liste;
 	private JCheckBox box;
 	
 	private ImageIcon imgArtiste;
@@ -131,9 +135,31 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		} else {
 			box.setSelected(false);
 		}
+		
+		loadAlbums(numero);
+			
+		
 	
 	}
 	
+	private void loadAlbums(int numero) {
+		
+		ArrayList<Albums> listeAlbums = gestion.getAlbumDeArtiste(numero);
+		
+		DefaultListModel<String> modelAlbum = new DefaultListModel<String>();
+		
+		
+		
+		for (int i = 0; i < listeAlbums.size(); i++) {
+			Albums album = listeAlbums.get(i);
+			modelAlbum.addElement(album.toString());
+		}
+		
+		liste.setModel(modelAlbum);
+		
+		
+	}
+
 	private Image resizeImage(String chemin, int width, int height){
 		BufferedImage img = null;
 		try {
