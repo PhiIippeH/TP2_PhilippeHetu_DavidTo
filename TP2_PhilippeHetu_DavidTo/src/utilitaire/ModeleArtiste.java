@@ -15,16 +15,30 @@ public class ModeleArtiste extends AbstractTableModel {
 	
 	private final String [] columns = {"Numero", "Nom", "Membre"};
 	
-	public ModeleArtiste(ArrayList<Artiste> data) {
+	
+	public ModeleArtiste(ArrayList<Artiste> data){
 		this.data = data;
 	}
 	
-	public void addArtiste(Artiste  employe) {
-		data.add(employe);
+	public void addArtiste(Artiste  artiste) {
+		data.add(artiste);
 		fireTableRowsInserted(data.size() -1, data.size() -1);
 	}
 	
-	public void deleteData() {
+	public void deleteData(int index) {
+		data.remove(index);
+		
+		fireTableRowsDeleted(index,index);
+		
+    }
+	
+	public void modifierData(int index, Artiste artiste) {
+		data.set(index, artiste);
+		fireTableRowsUpdated(index, index);
+		
+    }
+	
+	public void clearData() {
         int rows = getRowCount();
         if (rows == 0) {
             return;
@@ -36,7 +50,7 @@ public class ModeleArtiste extends AbstractTableModel {
 	
 	public void refresh (ArrayList<Artiste> data) {
 		this.data = data;
-		this.fireTableDataChanged();
+		fireTableDataChanged();
 	}
 	
 	@Override

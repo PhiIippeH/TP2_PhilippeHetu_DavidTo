@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JOptionPane;
+
 
 public class ControlConnection {
 
@@ -26,7 +26,6 @@ public class ControlConnection {
 			if (laConnexion == null || laConnexion.isClosed()) {
 				Class.forName("org.sqlite.JDBC");
 				laConnexion = DriverManager.getConnection(url);
-				JOptionPane.showMessageDialog(null, "Connect\u00E9 à laBD", "ALERTE", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} catch (ClassNotFoundException e) {
 

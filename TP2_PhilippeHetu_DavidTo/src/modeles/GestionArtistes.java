@@ -41,9 +41,11 @@ public class GestionArtistes {
 		String photo = null;
 		boolean membre = false;
 		
-		try {
-			Statement statement = connection.createStatement();
-			ResultSet jeuResultat = statement.executeQuery( requete );
+		ControlConnection.connecter();
+		
+		try (Statement statement = connection.createStatement();
+			ResultSet jeuResultat = statement.executeQuery( requete );){
+			
 			while ( jeuResultat.next() ) {
 				numero = jeuResultat.getInt( "numero" );
 				nom = jeuResultat.getString( "nom" );
@@ -60,21 +62,27 @@ public class GestionArtistes {
 		return liste;
 	}
 
-	public ResultSet rechercheArtiste( String mot ) {
-		ResultSet resultatRecherche = null;
+	public ArrayList<Artiste> rechercheArtiste( String mot ) {
+	
+		
+		ArrayList<Artiste> liste = new ArrayList<>();
 
 		String requete = "SELECT * FROM artiste where nom like '%" + mot + "%'";
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet jeuResultat = statement.executeQuery( requete );
-			resultatRecherche = jeuResultat;
+			while (jeuResultat.next()) {
+				liste.add(new Artiste(jeuResultat.getInt("numero"), jeuResultat.getString("nom"),
+						jeuResultat.getBoolean("membre"), jeuResultat.getString("photo")));
+				
+			}
 
 		} catch ( SQLException sqle ) {
 			JOptionPane.showMessageDialog( null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
 					JOptionPane.ERROR_MESSAGE );
 		}
 
-		return resultatRecherche;
+		return liste;
 
 	}
 

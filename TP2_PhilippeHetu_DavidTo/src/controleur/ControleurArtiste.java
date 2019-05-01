@@ -44,7 +44,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	private ImageIcon imgArtiste;
 	private ImageIcon  imgAlbum;
 	
-	private ModeleArtiste model;
+	private ModeleArtiste model = new ModeleArtiste(gestion.getListeArtiste());
 		
 	
 	
@@ -55,8 +55,10 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		texts = frm.getTextes();
 		table = frm.getTable();
 		liste = frm.getListe();
-		model = frm.getModelArtiste();
+		
 		box = frm.getCheckMembre();
+
+		table.setModel(model);
 
 		imgArtiste = new ImageIcon(resizeImage("img/defaut.png", imgs[0].getWidth(), imgs[0].getHeight()));
 
@@ -66,7 +68,6 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 
 		imgs[1].setIcon(imgAlbum);
 		
-		//loadJTable();
 
 	}
 
@@ -75,19 +76,14 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 
 		if (e.getSource() == btns[0]) {
 			if (btns[0].getText() != "") {
-				ResultSet result = gestion.rechercheArtiste(texts[0].getText());
-			   
-				try {
-					while (result.next()) {
-						
-					}
-					table.setModel(model);
-				} catch (SQLException e1) {
-					
-					e1.printStackTrace();
-				}
+				ArrayList<Artiste> result = gestion.rechercheArtiste(texts[0].getText());
+			  
+				model.refresh(result);
+				
+				table.setModel(model);
+				
 			} else {
-				//loadJTable();
+				loadJTable();
 			}
 			
 			
@@ -118,8 +114,16 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 			String nom = (String) table.getValueAt(indice, 1);
 			boolean membre = (boolean) table.getValueAt(indice, 2);
 			gestion.supprimerArtiste( new Artiste( numero, nom, membre, "" ) );
+			model.deleteData(indice);
 		}
 
+	}
+
+	private void loadJTable() {
+	    ArrayList<Artiste> liste = gestion.getListeArtiste();
+	    model.refresh(liste);
+	    table.setModel(model);
+		
 	}
 
 	@Override
