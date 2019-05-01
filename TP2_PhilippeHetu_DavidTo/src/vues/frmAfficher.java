@@ -23,6 +23,7 @@ import utilitaire.ControlConnection;
 import utilitaire.Rendu;
 
 import javax.swing.ListSelectionModel;
+import java.awt.Button;
 
 public class frmAfficher extends JFrame{
 
@@ -166,6 +167,10 @@ public class frmAfficher extends JFrame{
 		texteGroupe[1] = champNumero;
 		texteGroupe[2] = champNom;
 		
+		Button aideGestion = new Button("Aide");
+		aideGestion.setBounds(10, 465, 70, 22);
+		getContentPane().add(aideGestion);
+		
 		table.getColumnModel().getColumn(0).setCellRenderer(renderer);
 		
 		addWindowListener(new WindowAdapter() {
@@ -210,5 +215,4 @@ public class frmAfficher extends JFrame{
 	public JCheckBox getCheckMembre(){
 		return checkMembre;
 	}
-	
 }

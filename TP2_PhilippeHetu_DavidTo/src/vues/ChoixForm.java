@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 
 
 import controleur.ControleurMenu;
+import java.awt.Button;
 
 public class ChoixForm extends JFrame {
 	/**
@@ -25,6 +26,10 @@ public class ChoixForm extends JFrame {
 		getContentPane().add(getBtnArtiste());
 		getContentPane().add(getBtnAlbums());
 		getContentPane().add(getBtnQuitter());
+		
+		Button aideChoix = new Button("Aide");
+		aideChoix.setBounds(10, 240, 70, 22);
+		getContentPane().add(aideChoix);
 		btnArtiste.addActionListener(controlMenu);
 		btnQuitter.addActionListener(controlMenu);
 		
@@ -52,10 +57,4 @@ public class ChoixForm extends JFrame {
 		}
 		return btnQuitter;
 	}
-	
-	
-	
-	
-	
-	
 }
