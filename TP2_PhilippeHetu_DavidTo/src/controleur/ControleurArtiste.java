@@ -1,5 +1,6 @@
 package controleur;
 
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +39,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	private JTextField[] texts;
 	private GestionArtistes gestion = new GestionArtistes();
 	private JTable table;
-	private JList<String> liste;
+	private JList<String> listeAlbums;
 	private JCheckBox box;
 	
 	private ImageIcon imgArtiste;
@@ -54,7 +55,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		imgs = frm.getImg();
 		texts = frm.getTextes();
 		table = frm.getTable();
-		liste = frm.getListe();
+		listeAlbums = frm.getListe();
 		
 		box = frm.getCheckMembre();
 
@@ -120,6 +121,8 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 			boolean membre = (boolean) table.getValueAt(indice, 2);
 			gestion.supprimerArtiste( new Artiste( numero, nom, membre, "" ) );
 			model.deleteData(indice);
+			
+			
 		}
 
 	}
@@ -134,21 +137,44 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		int indice = table.getSelectedRow();
-		int numero =(int) table.getValueAt(indice, 0);
-		String nom = (String) table.getValueAt(indice, 1);
-		boolean membre = (boolean) table.getValueAt(indice, 2);
-		
-		texts[1].setText("" + numero);
-		texts[2].setText("" + nom);
-		
-		if (membre) {
-			box.setSelected(true);
-		} else {
-			box.setSelected(false);
+			int numero = (int) table.getValueAt(indice, 0);
+			String nom = (String) table.getValueAt(indice, 1);
+			boolean membre = (boolean) table.getValueAt(indice, 2);
+
+		if (e.getSource() == table.getSelectionModel()) {
+			
+			
+			imgAlbum = new ImageIcon(resizeImage("img/defaut.png", imgs[1].getWidth(), imgs[1].getHeight()));
+
+			imgs[1].setIcon(imgAlbum);
+
+			texts[1].setText("" + numero);
+			texts[2].setText("" + nom);
+
+			if (membre) {
+				box.setSelected(true);
+			} else {
+				box.setSelected(false);
+			}
+
+			loadAlbums(numero);
+		} else if (e.getSource() == listeAlbums) {
+			ArrayList<Albums> listeAlbums = gestion.getAlbumDeArtiste(numero);
+			try {
+				int index = this.listeAlbums.getSelectedIndex();
+
+				Albums album = listeAlbums.get(index);
+
+				imgAlbum = new ImageIcon(resizeImage("img/" + album.image, imgs[1].getWidth(), imgs[1].getHeight()));
+
+				imgs[1].setIcon(imgAlbum);
+			} catch (Exception e2) {
+
+			}
+
 		}
 		
-		loadAlbums(numero);
-			
+		
 		
 	
 	}
@@ -166,7 +192,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 			modelAlbum.addElement(album.toString());
 		}
 		
-		liste.setModel(modelAlbum);
+		this.listeAlbums.setModel(modelAlbum);
 		
 		
 	}

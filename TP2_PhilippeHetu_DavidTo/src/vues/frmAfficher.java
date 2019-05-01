@@ -180,6 +180,8 @@ public class frmAfficher extends JFrame{
 		});
 		
 		table.getSelectionModel().addListSelectionListener(control);
+		
+		listAlbums.addListSelectionListener(control);
 	}
 	
 	public JButton[] getBtn(){
