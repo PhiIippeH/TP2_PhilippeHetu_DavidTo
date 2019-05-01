@@ -152,5 +152,20 @@ public class GestionArtistes {
 		return listeAlbums;
 
 	}
+	
+	public int getDernierNumero(){
+		String requete = "SELECT numero FROM albums ORDER BY numero DESC";
+		int num = -1;
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet jeuResultat = statement.executeQuery( requete );
+			num = jeuResultat.getInt("numero");
+		} catch (SQLException sqle) {
+			JOptionPane.showMessageDialog( null, "Problème rencontr\u00E8 : " + sqle.getMessage(), "Résultat",
+					JOptionPane.ERROR_MESSAGE );
+		}
+		
+		return num;
+	}
 
 }
