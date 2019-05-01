@@ -85,6 +85,48 @@ public class GestionArtistes {
 		return liste;
 
 	}
+	
+	public void modifierArtiste( Artiste artiste ){
+		int var;
+		if ( artiste.getMembre() ) {
+			var = 1;
+		} else {
+			var = 0;
+		}
+		String requete = "update artiste set nom='"
+				+ artiste.getNom() + "',membre=" + var + ", where numero=" + artiste.getNumero();
+
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate( requete );
+
+		} catch ( SQLException sqle ) {
+			JOptionPane.showMessageDialog( null,
+					"Probl\u00E8me rencontr\u00E9 lors de l'enregistrement de l'artiste: " + sqle.getMessage(),
+					"Résultat", JOptionPane.ERROR_MESSAGE );
+		}
+	}
+	
+	public void modifierArtisteReg( int num, String nom, boolean memb){
+		int var;
+		if ( memb ) {
+			var = 1;
+		} else {
+			var = 0;
+		}
+		String requete = "update artiste set nom='"
+				+ nom + "',membre=" + var + ", where numero=" + num;
+
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate( requete );
+
+		} catch ( SQLException sqle ) {
+			JOptionPane.showMessageDialog( null,
+					"Probl\u00E8me rencontr\u00E9 lors de l'enregistrement de l'artiste: " + sqle.getMessage(),
+					"Résultat", JOptionPane.ERROR_MESSAGE );
+		}
+	}
 
 	// La méthode d'ajout d'un employé retourne vrai si l'ajout dans la BD a
 	// réusi, faux si non
