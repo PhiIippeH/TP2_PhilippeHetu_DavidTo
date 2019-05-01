@@ -4,6 +4,8 @@ package vues;
 
 
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,12 +15,11 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
+
 import javax.swing.table.DefaultTableModel;
 
 import controleur.ControleurArtiste;
-import modeles.GestionArtistes;
-import utilitaire.ModeleArtiste;
+import utilitaire.ControlConnection;
 import utilitaire.Rendu;
 
 import javax.swing.ListSelectionModel;
@@ -60,10 +61,8 @@ public class frmAfficher extends JFrame{
 	private JScrollPane scrollPane = new JScrollPane();
 	private JTable table = new JTable();
 	
-	private ModeleArtiste artistTableModel;
-	private Rendu renderer;
-	
-	private GestionArtistes modeleArtiste;
+
+	private Rendu renderer = new Rendu();
 	
 	public frmAfficher(){
 		
@@ -150,13 +149,7 @@ public class frmAfficher extends JFrame{
 		lblDroite.setBounds(527, 320, 186, 153);
 		getContentPane().add(lblDroite);
 	
-		modeleArtiste = new GestionArtistes();
-		
-		//listAlbums = new JList<String>(listeNomsAlbums);
-		
-		artistTableModel = new ModeleArtiste(modeleArtiste.getListeArtiste());
-		
-		table = new JTable(artistTableModel);
+		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane = new JScrollPane(table);
 		
@@ -173,6 +166,20 @@ public class frmAfficher extends JFrame{
 		texteGroupe[1] = champNumero;
 		texteGroupe[2] = champNom;
 		
+		table.getColumnModel().getColumn(0).setCellRenderer(renderer);
+		
+		addWindowListener(new WindowAdapter() {
+			
+			public void windowClosing(WindowEvent e)
+		    {
+				ControlConnection.fermerSession();
+				
+		    }
+			
+
+		});
+		
+		table.getSelectionModel().addListSelectionListener(control);
 	}
 	
 	public JButton[] getBtn(){
@@ -197,10 +204,7 @@ public class frmAfficher extends JFrame{
 	public DefaultTableModel getModel(){
 		return model;
 	}
-	public ModeleArtiste getModelArtiste(){
-		return artistTableModel;
-	}
-	
+
 	public JCheckBox getCheckMembre(){
 		return checkMembre;
 	}
