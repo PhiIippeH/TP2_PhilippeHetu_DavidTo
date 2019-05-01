@@ -103,7 +103,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		} else if (e.getSource() == btns[3]) {
 			if ( !texts[1].getText().isEmpty() && !texts[2].getText().isEmpty() ) {
 				Artiste artiste = new Artiste( Integer.parseInt( texts[1].getText() ), texts[2].getText(),
-						box.isSelected(), "img/defaut.png" );
+						box.isSelected(), "defaut.png" );
 				gestion.ajouterArtiste( artiste );
 				model.addArtiste(artiste);
 			}else{
