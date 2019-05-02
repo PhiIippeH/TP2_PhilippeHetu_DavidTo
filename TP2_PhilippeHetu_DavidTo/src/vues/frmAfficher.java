@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controleur.ControleurArtiste;
-import controleur.ControleurModifier;
 import utilitaire.ControlConnection;
 import utilitaire.Rendu;
 
@@ -159,7 +158,8 @@ public class frmAfficher extends JFrame{
 		
 		control = new ControleurArtiste(this);
 		
-		table.addMouseListener( new ControleurModifier(table) );
+		table.addMouseListener( control );
+		
 		
 		for (int i = 0; i < btnGroup.length; i++) {
 			btnGroup[i].addActionListener(control);

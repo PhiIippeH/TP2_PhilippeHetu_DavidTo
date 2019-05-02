@@ -2,13 +2,14 @@ package vues;
 
 import java.awt.Font;
 
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import controleur.ControleurModifier;
+import controleur.ControleurArtiste;
 
 public class VueModifier extends JFrame {
 	
@@ -22,12 +23,13 @@ public class VueModifier extends JFrame {
 	JCheckBox checkBox = new JCheckBox("");
 	
 	
-	public VueModifier(int num, String nom, boolean memb) {	
+	
+	public VueModifier(int num, String nom, boolean memb, ControleurArtiste control) {	
 		super("Modifier");
 		setSize( 500, 300 );
 		
 		setBounds( 100, 100, 471, 300 );
-		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		getContentPane().setLayout(null);
 		
 		textField_1 = new JTextField();
@@ -73,11 +75,20 @@ public class VueModifier extends JFrame {
 		btnModifier.setBounds(246, 166, 153, 23);
 		getContentPane().add(btnModifier);
 		
-		btnModifier.addActionListener( new ControleurModifier(num,nom,memb,btnModifier,btnNewButton) );
+		btnModifier.addActionListener( control );
+		
 		
 	}
 	
-	public void setNumero(int num){
+	public JButton[] getButton(){
+		JButton[] a = {btnModifier,btnNewButton};
+		return a;
+		
+	}
+	
+	public JTextField[] getText(){
+		 JTextField[] a = {textField,textField_1};
+		return a;
 		
 	}
 	

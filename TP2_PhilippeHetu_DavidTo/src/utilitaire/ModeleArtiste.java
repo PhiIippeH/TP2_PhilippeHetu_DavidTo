@@ -37,7 +37,7 @@ public class ModeleArtiste extends AbstractTableModel {
 		fireTableRowsUpdated(index, index);
 		
     }
-	
+
 	public void clearData() {
         int rows = getRowCount();
         if (rows == 0) {

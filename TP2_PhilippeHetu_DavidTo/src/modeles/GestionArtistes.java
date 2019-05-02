@@ -14,6 +14,7 @@ public class GestionArtistes {
 
 	private Connection connection = ControlConnection.getLaConnexion();
 	private ArrayList<Artiste> listeArtistes;
+	
 
 	public ResultSet getArtiste() {
 		return ControlConnection.getArtiste();
@@ -115,7 +116,7 @@ public class GestionArtistes {
 			var = 0;
 		}
 		String requete = "update artiste set nom='"
-				+ nom + "',membre=" + var + ", where numero=" + num;
+				+ nom + "',membre='" + var + "' where numero=" + num ;
 
 		try {
 			Statement statement = connection.createStatement();

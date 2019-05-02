@@ -15,6 +15,12 @@ public class Artiste {
 		
 		
 	}
+	
+	public Artiste(int numero,String nom, boolean memb){
+		this.numero = numero;
+		this.nom = nom;
+		this.membre = memb;
+	}
 
 
 	public int getNumero() {

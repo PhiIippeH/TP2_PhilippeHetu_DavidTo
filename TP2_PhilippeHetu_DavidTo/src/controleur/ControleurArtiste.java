@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import modeles.Albums;
 import modeles.Artiste;
 import modeles.GestionArtistes;
 import utilitaire.ModeleArtiste;
+import vues.VueModifier;
 import vues.frmAfficher;
 
 public class ControleurArtiste extends MouseAdapter implements ActionListener, ListSelectionListener {
@@ -37,6 +39,10 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	private JTable table;
 	private JList<String> liste;
 	private JCheckBox box;
+	private VueModifier modif;
+	private JButton[] buttonModif;
+	private JTextField[] textModif;
+	Artiste artiste;
 
 	private ImageIcon imgArtiste;
 	private ImageIcon imgAlbum;
@@ -107,6 +113,38 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 			boolean membre = (boolean) table.getValueAt( indice, 2 );
 			gestion.supprimerArtiste( new Artiste( numero, nom, membre, "" ) );
 			model.deleteData( indice );
+		}
+
+		if ( e.getSource() == buttonModif[0] ) {
+
+			int indice = table.getSelectedRow();
+			int num = (int) table.getValueAt( indice, 0 );
+			String nom = (String) table.getValueAt( indice, 1 );
+			boolean memb = (boolean) table.getValueAt( indice, 2 );
+			num = Integer.parseInt(( textModif[0].getText()));
+			
+			gestion.modifierArtisteReg( num, nom, memb );
+			artiste = new Artiste( num, nom, memb );
+			model.modifierData( num, artiste );
+
+		} else if ( e.getSource() == buttonModif[1] ) {
+
+		}
+
+	}
+
+	@Override
+	public void mouseClicked( MouseEvent e ) {
+		if ( e.getClickCount() == 2 ) {
+			int indice = table.getSelectedRow();
+			int numero = (int) table.getValueAt( indice, 0 );
+			String nom = (String) table.getValueAt( indice, 1 );
+			boolean membre = (boolean) table.getValueAt( indice, 2 );
+			modif = new VueModifier( numero, nom, membre, this );
+			modif.setVisible( true );
+			textModif = modif.getText();
+			buttonModif = modif.getButton();
+
 		}
 
 	}
