@@ -42,7 +42,9 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 	private VueModifier modif;
 	private JButton[] buttonModif;
 	private JTextField[] textModif;
-	Artiste artiste;
+	private Artiste artiste;
+	private JCheckBox box1;
+	
 
 	private ImageIcon imgArtiste;
 	private ImageIcon imgAlbum;
@@ -118,17 +120,19 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 		if ( e.getSource() == buttonModif[0] ) {
 
 			int indice = table.getSelectedRow();
-			int num = (int) table.getValueAt( indice, 0 );
-			String nom = (String) table.getValueAt( indice, 1 );
-			boolean memb = (boolean) table.getValueAt( indice, 2 );
+			int num;
+			String nom ;
+			boolean memb;
 			num = Integer.parseInt(( textModif[0].getText()));
-			
+			nom = textModif[1].getText();
+			memb = box1.isSelected();
 			gestion.modifierArtisteReg( num, nom, memb );
 			artiste = new Artiste( num, nom, memb );
-			model.modifierData( num, artiste );
+			model.modifierData( indice, artiste );
+			modif.dispose();
 
 		} else if ( e.getSource() == buttonModif[1] ) {
-
+			modif.dispose();
 		}
 
 	}
@@ -144,6 +148,7 @@ public class ControleurArtiste extends MouseAdapter implements ActionListener, L
 			modif.setVisible( true );
 			textModif = modif.getText();
 			buttonModif = modif.getButton();
+			box1 = modif.getBox();
 
 		}
 

@@ -1,5 +1,6 @@
 package vues;
 
+import java.awt.Checkbox;
 import java.awt.Font;
 
 
@@ -76,6 +77,7 @@ public class VueModifier extends JFrame {
 		getContentPane().add(btnModifier);
 		
 		btnModifier.addActionListener( control );
+		btnNewButton.addActionListener( control );
 		
 		
 	}
@@ -89,6 +91,16 @@ public class VueModifier extends JFrame {
 	public JTextField[] getText(){
 		 JTextField[] a = {textField,textField_1};
 		return a;
+		
+	}
+	
+	public JCheckBox getBox(){
+		return checkBox;
+		
+	}
+	
+	public JFrame getFrameModif(){
+		return this;
 		
 	}
 	
