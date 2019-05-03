@@ -39,6 +39,7 @@ public class frmAfficher extends JFrame{
 	private JButton btnModifier = new JButton("Modifier");
 	private JButton btnSupprimer = new JButton("Supprimer");
 	private JButton btnRemplacer = new JButton("Remplacer");
+	private JButton btnAide = new JButton("Aide");
 	
 	private JLabel lblArtistes = new JLabel("Artistes");
 	private JLabel lblInfo = new JLabel("Informations");
@@ -53,7 +54,7 @@ public class frmAfficher extends JFrame{
 	private JList<String> listAlbums;
 	private ControleurArtiste control;
 	
-	private JButton[] btnGroup = {btnRecherche,btnQuitter,btnNouveau, btnAjouter,btnModifier,btnSupprimer,btnRemplacer};
+	private JButton[] btnGroup = {btnRecherche,btnQuitter,btnNouveau, btnAjouter,btnModifier,btnSupprimer,btnRemplacer,btnAide};
 	private JLabel[] imgGroupe = {lblImageGauche,lblDroite};
 	private JTextField[] texteGroupe = {null,null,null};
 	
@@ -64,6 +65,7 @@ public class frmAfficher extends JFrame{
 	
 
 	private Rendu renderer = new Rendu();
+	
 	
 	public frmAfficher(){
 		
@@ -159,6 +161,8 @@ public class frmAfficher extends JFrame{
 		
 		control = new ControleurArtiste(this);
 		
+		table.addMouseListener( control );
+		
 		for (int i = 0; i < btnGroup.length; i++) {
 			btnGroup[i].addActionListener(control);
 		}
@@ -166,10 +170,9 @@ public class frmAfficher extends JFrame{
 		texteGroupe[0] = champRecherche;
 		texteGroupe[1] = champNumero;
 		texteGroupe[2] = champNom;
+		btnAide.setBounds(10, 463, 89, 23);
 		
-		Button aideGestion = new Button("Aide");
-		aideGestion.setBounds(10, 465, 70, 22);
-		getContentPane().add(aideGestion);
+		getContentPane().add(btnAide);
 		
 		table.getColumnModel().getColumn(0).setCellRenderer(renderer);
 		

@@ -23,10 +23,10 @@ public class IdentificationUtilisateur extends JFrame {
 	private JTextField txtPwd = new JTextField();
 	private JButton valider = new JButton( "Valider" );
 	private JButton quitter = new JButton( "Quitter" );
-
+	private JButton btnAide = new JButton("Aide");
 	private JTextField[] texteGroupe = {txtNom,txtPwd};
-	private JButton[] btnGroup = {valider,quitter};
-	private final Button aide = new Button("Aide");
+	private JButton[] btnGroup = {valider,quitter,btnAide};
+	
 
 	public IdentificationUtilisateur() {
 
@@ -71,14 +71,15 @@ public class IdentificationUtilisateur extends JFrame {
 
 		quitter.setBounds(223, 167, 170, 40);
 		getContentPane().add(quitter);
-		aide.setBounds(10, 240, 70, 22);
+		btnAide.setBounds(10, 238, 89, 23);
 		
-		getContentPane().add(aide);
+		getContentPane().add(btnAide);
 		
 		ControleurAuthentification action = new ControleurAuthentification(this);
 		
 		valider.addActionListener(action);
 		quitter.addActionListener(action);
+		btnAide.addActionListener(action);
 		
 
 	}
@@ -90,6 +91,8 @@ public class IdentificationUtilisateur extends JFrame {
 	public JButton[] getBtn() {
 		return btnGroup;
 	}
+	
+	
 
 
 }

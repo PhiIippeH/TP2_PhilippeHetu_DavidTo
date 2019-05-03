@@ -15,6 +15,7 @@ public class ChoixForm extends JFrame {
 	private JButton btnArtiste;
 	private JButton btnAlbums;
 	private JButton btnQuitter;
+	private JButton btnAide;
 	
 	public ChoixForm(){
 		super( "Choix Artistes/Albums" );
@@ -26,10 +27,7 @@ public class ChoixForm extends JFrame {
 		getContentPane().add(getBtnArtiste());
 		getContentPane().add(getBtnAlbums());
 		getContentPane().add(getBtnQuitter());
-		
-		Button aideChoix = new Button("Aide");
-		aideChoix.setBounds(10, 240, 70, 22);
-		getContentPane().add(aideChoix);
+		getContentPane().add(getBtnAide());
 		btnArtiste.addActionListener(controlMenu);
 		btnQuitter.addActionListener(controlMenu);
 		
@@ -56,5 +54,12 @@ public class ChoixForm extends JFrame {
 			btnQuitter.setBounds(72, 164, 291, 48);
 		}
 		return btnQuitter;
+	}
+	public JButton getBtnAide() {
+		if (btnAide == null) {
+			btnAide = new JButton("Aide");
+			btnAide.setBounds(10, 238, 89, 23);
+		}
+		return btnAide;
 	}
 }

@@ -18,9 +18,7 @@ public class Quitter {
 			
 			
 			System.exit(0);
-		} else {
-			
-		}
+		} 
 	} 
 	
 

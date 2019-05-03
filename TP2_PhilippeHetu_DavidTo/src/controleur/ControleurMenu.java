@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import utilitaire.ControlConnection;
+import utilitaire.MethodeAide;
 import vues.ChoixForm;
 import vues.frmAfficher;
 
@@ -30,6 +31,8 @@ public class ControleurMenu implements ActionListener {
 		} else if (e.getSource() == vue.getBtnQuitter()) {
 			
 			new Quitter();
+		} else if (e.getSource() == vue.getBtnAide()) {
+			new MethodeAide();
 		}
 		
 	}

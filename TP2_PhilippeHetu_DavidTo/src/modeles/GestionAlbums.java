@@ -48,8 +48,7 @@ public class GestionAlbums {
 		return liste;
 	}
 
-	// La méthode d'ajout d'un employé retourne vrai si l'ajout dans la BD a
-	// réusi, faux si non
+
 	public boolean ajouterAlbums( Albums album ) {
 		boolean boolAjout = false;
 		String requete = "";

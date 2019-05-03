@@ -17,6 +17,13 @@ public class Artiste {
 	}
 
 
+	public Artiste(int num, String nom, boolean memb) {
+		numero = num;
+		this.nom = nom;
+		membre = memb;
+	}
+
+
 	public int getNumero() {
 		
 		return this.numero;

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import modeles.Authentification;
+import utilitaire.MethodeAide;
 import vues.ChoixForm;
 import vues.IdentificationUtilisateur;
 
@@ -39,6 +40,8 @@ public class ControleurAuthentification implements ActionListener{
 			}
 		} else if (e.getSource() == groupe[1]) {
 			new Quitter();
+		}else if (e.getSource() == groupe[2]) {
+			new MethodeAide();
 		}
 	}
 

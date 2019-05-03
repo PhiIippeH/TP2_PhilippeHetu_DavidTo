@@ -2,11 +2,8 @@ package utilitaire;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.sql.Statement;
-
-
 
 public class ControlConnection {
 
@@ -35,7 +32,7 @@ public class ControlConnection {
 	}
 
 	public static void fermerSession() {
-		
+
 		try {
 			if (laConnexion != null && !laConnexion.isClosed()) {
 				laConnexion.close();
@@ -47,54 +44,7 @@ public class ControlConnection {
 		}
 
 	}
-	
-	public static ResultSet getArtiste() {
-		String sql = "SELECT numero, nom, membre FROM artiste";
-		ResultSet result = null;
-		 try {
-			 Connection conn = laConnexion;
-	             Statement stmt  = conn.createStatement();
-	             ResultSet rs    = stmt.executeQuery(sql);
-	            result = rs;
-	            //loop through the result set
-	            /* while (rs.next()) {
-	                System.out.println(rs.getString("numero") +  "\t" + 
-	                                   rs.getString("nom") + "\t" +
-	                                   rs.getString("membre"));
-	            }*/
-	            
-	        } catch (SQLException e) {
-	            System.out.println(e.getMessage());
-	        }
-		return result;
 
-	}
-	
-	public static ResultSet getAlbums() {
-		String sql = "SELECT numero, titre, genre, annee FROM albums";
-		ResultSet result = null;
-		 try {
-	            	 Connection conn = laConnexion;
-	             Statement stmt  = conn.createStatement();
-	             ResultSet rs    = stmt.executeQuery(sql);
-	            result = rs;
-	            //loop through the result set
-	           /* while (rs.next()) {
-	                System.out.println(rs.getString("numero") +  "\t" + 
-	                                   rs.getString("titre") + "\t" +
-	                                   rs.getString("genre")+ "\t" +
-	                                   rs.getString("annee"));
-	            }*/
-	            
-	            
-	        } catch (SQLException e) {
-	            System.out.println(e.getMessage());
-	        }
-		return result;
-
-
-	}
-	
 	public static Connection getLaConnexion() {
 		return laConnexion;
 	}

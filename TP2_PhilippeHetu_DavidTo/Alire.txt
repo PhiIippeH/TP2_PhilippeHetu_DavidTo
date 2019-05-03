@@ -1,2 +1,4 @@
 Nom: root
 Mot de passe: root
+
+Pour ajouter plus d'image veuiller les mettre dans le dossier img sous un des format suivante : .jpg, .jpeg, .gif, .bmp ou .png.
