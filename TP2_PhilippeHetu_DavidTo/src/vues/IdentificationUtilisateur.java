@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import controleur.ControleurAuthentification;
+import java.awt.Button;
 
 
 public class IdentificationUtilisateur extends JFrame {
@@ -22,9 +23,10 @@ public class IdentificationUtilisateur extends JFrame {
 	private JTextField txtPwd = new JTextField();
 	private JButton valider = new JButton( "Valider" );
 	private JButton quitter = new JButton( "Quitter" );
-
+	private JButton btnAide = new JButton("Aide");
 	private JTextField[] texteGroupe = {txtNom,txtPwd};
-	private JButton[] btnGroup = {valider,quitter};
+	private JButton[] btnGroup = {valider,quitter,btnAide};
+	
 
 	public IdentificationUtilisateur() {
 
@@ -69,6 +71,9 @@ public class IdentificationUtilisateur extends JFrame {
 
 		quitter.setBounds(223, 167, 170, 40);
 		getContentPane().add(quitter);
+		btnAide.setBounds(10, 238, 89, 23);
+		
+		getContentPane().add(btnAide);
 		
 		ControleurAuthentification action = new ControleurAuthentification(this);
 		

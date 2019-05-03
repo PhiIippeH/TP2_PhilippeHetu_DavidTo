@@ -1,6 +1,6 @@
 package vues;
 
-import java.awt.Checkbox;
+
 import java.awt.Font;
 
 
@@ -104,13 +104,7 @@ public class VueModifier extends JFrame {
 		
 	}
 	
-	public void setNom(String nom){
-		
-	}
-	
-	public void setMembre(boolean memb){
-		
-	}
+
 	
 	
 	

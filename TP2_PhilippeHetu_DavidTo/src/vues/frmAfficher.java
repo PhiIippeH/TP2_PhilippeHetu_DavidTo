@@ -23,6 +23,7 @@ import utilitaire.ControlConnection;
 import utilitaire.Rendu;
 
 import javax.swing.ListSelectionModel;
+import java.awt.Button;
 
 public class frmAfficher extends JFrame{
 
@@ -38,6 +39,7 @@ public class frmAfficher extends JFrame{
 	private JButton btnModifier = new JButton("Modifier");
 	private JButton btnSupprimer = new JButton("Supprimer");
 	private JButton btnRemplacer = new JButton("Remplacer");
+	private JButton btnAide = new JButton("Aide");
 	
 	private JLabel lblArtistes = new JLabel("Artistes");
 	private JLabel lblInfo = new JLabel("Informations");
@@ -52,7 +54,7 @@ public class frmAfficher extends JFrame{
 	private JList<String> listAlbums;
 	private ControleurArtiste control;
 	
-	private JButton[] btnGroup = {btnRecherche,btnQuitter,btnNouveau, btnAjouter,btnModifier,btnSupprimer,btnRemplacer};
+	private JButton[] btnGroup = {btnRecherche,btnQuitter,btnNouveau, btnAjouter,btnModifier,btnSupprimer,btnRemplacer,btnAide};
 	private JLabel[] imgGroupe = {lblImageGauche,lblDroite};
 	private JTextField[] texteGroupe = {null,null,null};
 	
@@ -63,6 +65,7 @@ public class frmAfficher extends JFrame{
 	
 
 	private Rendu renderer = new Rendu();
+	
 	
 	public frmAfficher(){
 		
@@ -160,7 +163,6 @@ public class frmAfficher extends JFrame{
 		
 		table.addMouseListener( control );
 		
-		
 		for (int i = 0; i < btnGroup.length; i++) {
 			btnGroup[i].addActionListener(control);
 		}
@@ -168,6 +170,9 @@ public class frmAfficher extends JFrame{
 		texteGroupe[0] = champRecherche;
 		texteGroupe[1] = champNumero;
 		texteGroupe[2] = champNom;
+		btnAide.setBounds(10, 463, 89, 23);
+		
+		getContentPane().add(btnAide);
 		
 		table.getColumnModel().getColumn(0).setCellRenderer(renderer);
 		
@@ -178,8 +183,13 @@ public class frmAfficher extends JFrame{
 				ControlConnection.fermerSession();
 				
 		    }
+			
 
 		});
+		
+		table.getSelectionModel().addListSelectionListener(control);
+		
+		listAlbums.addListSelectionListener(control);
 	}
 	
 	public JButton[] getBtn(){
@@ -208,5 +218,4 @@ public class frmAfficher extends JFrame{
 	public JCheckBox getCheckMembre(){
 		return checkMembre;
 	}
-	
 }

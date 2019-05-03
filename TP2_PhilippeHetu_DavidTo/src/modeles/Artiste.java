@@ -15,11 +15,12 @@ public class Artiste {
 		
 		
 	}
-	
-	public Artiste(int numero,String nom, boolean memb){
-		this.numero = numero;
+
+
+	public Artiste(int num, String nom, boolean memb) {
+		numero = num;
 		this.nom = nom;
-		this.membre = memb;
+		membre = memb;
 	}
 
 
